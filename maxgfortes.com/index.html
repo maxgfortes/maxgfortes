@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>maxgfortes.com</title>
+    <style>
+        /* Estilos Base */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #333333;
+            --secondary-accent: #1a1a1a;
+            --highlight: #454545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header com Animação */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            z-index: 2;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #aaa;
+        }
+        
+        /* Header com GIF de fundo */
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: url('./src/assets/bg/bg.gif') center center;
+            background-size: cover;
+            opacity: 0.4;
+            filter: brightness(0.5) contrast(1.2);
+        }
+        
+        /* Navegação */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--highlight);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Seções */
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--secondary-accent);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--highlight);
+        }
+        
+        /* Sobre Mim */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .profile-pic {
+            width: 100%;
+            height: 400px;
+            background-color: var(--secondary-accent);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Placeholder para a imagem de perfil */
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #222, #333);
+            color: #555;
+            font-size: 1.5rem;
+        }
+        
+        /* Interesses */
+        .interests-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .interest-card {
+            background-color: var(--secondary-accent);
+            border-radius: 8px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .interest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .interest-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+        
+        .interest-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .interest-text {
+            color: #aaa;
+        }
+        
+        /* Social Media */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .social-card {
+            background-color: var(--secondary-accent);
+            border-radius: 8px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .social-card:hover {
+            transform: scale(1.05);
+            background-color: var(--accent-color);
+        }
+        
+        .social-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+        }
+        
+        .social-info h3 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .social-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Projetos */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background-color: var(--secondary-accent);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            height: 200px;
+            width: 100%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+        }
+        
+        .project-info {
+            padding: 25px;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .project-desc {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .project-link {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .project-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .project-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Contato */
+        .contact-form {
+            background-color: var(--secondary-accent);
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--accent-color);
+            border: 1px solid var(--highlight);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background: linear-gradient(to right, #333, #555);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: linear-gradient(to right, #444, #666);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-pic {
+                height: 300px;
+                order: -1;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animações para entrada de seções */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Cursor personalizado */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor Personalizado -->
+    <div class="custom-cursor"></div>
+    
+    <!-- Header com GIF de fundo -->
+    <header id="home">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1>maximus</h1>
+            <p class="tagline">Designer • Desenvolvedor • Criador</p>
+            <p>Do today what others won’t, so tomorrow you can do what others can’t.</p>
+        </div>
+    </header>
+    
+    <!-- Navegação -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">maxgfortes</div>
+            <div class="nav-links">
+                <a href="#home">Início</a>
+                <a href="#about">Sobre</a>
+                <a href="#interests">Interesses</a>
+                <a href="#social">Redes</a>
+                <a href="#projects">Projetos</a>
+                <a href="#contact">Contato</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Sobre Mim -->
+    <section id="about" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">Sobre Mim</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Olá! Sou apaixonado por criar experiências digitais únicas que combinam design e funcionalidade. Com mais de X anos de experiência na área criativa, trago uma perspectiva única para cada projeto que participo.</p>
+                    <p>Minha jornada começou quando descobri a paixão por [sua área] e desde então tenho me dedicado a aprimorar minhas habilidades e explorar novos horizontes criativos.</p>
+                    <p>Quando não estou trabalhando, gosto de [seus hobbies] e buscar inspiração em [suas fontes de inspiração]. Acredito que a criatividade se alimenta de experiências diversas, e estou sempre em busca de novos desafios.</p>
+                    <p>Atualmente, estou focado em [seu foco atual] e aberto a colaborações que me permitam expandir meus horizontes profissionais.</p>
+                </div>
+                <div class="profile-pic">
+                    <div class="profile-placeholder">
+                        <img src="./src/assets/img/feed.jpg" alt="Sua foto aqui" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Interesses -->
+    <section id="interests" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">Meus Interesses</h2>
+            <div class="interests-container">
+                <div class="interest-card">
+                    <div class="interest-icon"><span class="fas fa-paint-brush"></span></div>
+                    <h3 class="interest-title">Criação</h3>
+                    <p class="interest-text">Eu amo criar. Minha cabeça nunca para — estou sempre com alguma ideia na mente, desde as mais simples até as mais ambiciosas. Acredito que, se você quer deixar uma marca no mundo, precisa criar algo que mova as pessoas.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon"><span class="fas fa-code"></span> </div>
+                    <h3 class="interest-title">Programação</h3>
+                    <p class="interest-text">Sou fascinado por programação... dá pra perceber por este site. Com programação, você pode dar vida a qualquer ideia.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon"><span class="fas fa-music"></span> </div>
+                    <h3 class="interest-title">Música</h3>
+                    <p class="interest-text">A música é minha companheira constante. Meus cantores e bandas favoritas são TV Girl, Radiohead, AlexG, Deftones e TNGH e adoro descobrir novos artistas.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon"><span class="fas fa-suitcase"></span> </div>
+                    <h3 class="interest-title">Viagens</h3>
+                    <p class="interest-text">Tenho o sonho de viajar mais. A cada lugar novo que conheço, minha mente se expande e meu coração se enche de novas experiências. Amo explorar novos destinos, seja por conta das paisagens, das culturas ou das pessoas que encontro pelo caminho. Viajar não é só conhecer um novo local, é viver cada momento e aprender com o mundo.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon"><span class="fas fa-gamepad"></span>  </div>
+                    <h3 class="interest-title">Jogos</h3>
+                    <p class="interest-text">Eu adoro jogar. Jogos não são apenas entretenimento — eles ensinam lições, despertam emoções e fazem você se conectar com cada história. Além disso, aproximam pessoas do mundo todo através dos modos online.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon"><span class="fas fa-football-ball"></span></div>
+                    <h3 class="interest-title">Esportes</h3>
+                    <p class="interest-text">Sempre fui apaixonado por esportes. Gosto da adrenalina, da estratégia e da superação que cada modalidade exige. Jogo tênis, basquete, sei dirigir kart, pratico airsoft e ainda me arrisco no BMX Freestyle. Cada um deles me ensina algo diferente — coordenação, foco, resistência e, principalmente, disciplina.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Redes Sociais -->
+    <section id="social" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">Minhas Redes</h2>
+            <div class="social-grid">
+                <a href="https://instagram.com/seuusuario" class="social-card" target="_blank">
+                    <div class="social-icon"><span class="fa-brands fa-instagram"></span></div>
+                    <div class="social-info">
+                        <h3>Instagram</h3>
+                        <p>@maxgfortes</p>
+                    </div>
+                </a>
+                <a href="https://twitter.com/seuusuario" class="social-card" target="_blank">
+                    <div class="social-icon"><span class="fa-brands fa-twitter"></span></div>
+                    <div class="social-info">
+                        <h3>Twitter</h3>
+                        <p>@maxgfortes</p>
+                    </div>
+                </a>
+                <a href="https://linkedin.com/in/seuusuario" class="social-card" target="_blank">
+                    <div class="social-icon"><span class="fab fa-playstation"></span></div>
+                    <div class="social-info">
+                        <h3>PSN</h3>
+                        <p>ID: maxgfortes</p>
+                    </div>
+                </a>
+                <a href="https://github.com/seuusuario" class="social-card" target="_blank">
+                    <div class="social-icon"><span class="fa-brands fa-github"></span></div>
+                    <div class="social-info">
+                        <h3>GitHub</h3>
+                        <p>@maxgfortes</p>
+                    </div>
+                </a>
+                <a href="https://youtube.com/seucanal" class="social-card" target="_blank">
+                    <div class="social-icon"><span class="fab fa-tiktok"></span></div>
+                    <div class="social-info">
+                        <h3>Tik Tok</h3>
+                        <p>@maxgfortes</p>
+                    </div>
+                </a>
+                <a href="https://spotify.com/user/seuusuario" class="social-card" target="_blank">
+                    <div class="social-icon"><span class="fab fa-spotify"></span></div>
+                    <div class="social-info">
+                        <h3>Spotify</h3>
+                        <p>@maxgfortes</p>
+                    </div>
+                </a>
+                    <a href="https://spotify.com/user/seuusuario" class="social-card" target="_blank">
+                    <div class="social-icon"><span class="fa-brands fa-discord"></span></div>
+                    <div class="social-info">
+                        <h3>Discord</h3>
+                        <p>@maxgfortes</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projetos -->
+    <section id="projects" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">Meus Projetos</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">RealMe</h3>
+                        <p class="project-desc">Rede Social com o objetivo de conectar as pessoas como era originalmente as redes sociais mas com a tecnologia e conhecimentos atuais.</p>
+                        <a href="#" class="project-link">Ver projeto →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="./src/assets/img/panorama snow.png" alt="Projeto 2" />
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Minecraft Beautiful</h3>
+                        <p class="project-desc">Modificação que melhora o Minecraft de Playstation 3 dando uma experiencia moderna e melhorad para pessoas sem condições de comprar as novas versões.</p>
+                        <a href="#" class="project-link">Ver projeto →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">OÁSIS</h3>
+                        <p class="project-desc">Outra rede social mas agora com a ideia de fazer um espaço digital parecido com o extinto PS Home, Meta verso e o Oásis de Jogador Numero um.</p>
+                        <a href="#" class="project-link">Ver projeto →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contato -->
+    <section id="contact" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <p><i>em desenvolvimento</i></p>
+            <div class="contact-form">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="seu.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensagem</label>
+                    <textarea id="message" placeholder="Sua mensagem aqui..."></textarea>
+                </div>
+                <button type="submit">Enviar Mensagem</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#home">Início</a>
+                <a href="#about">Sobre</a>
+                <a href="#interests">Interesses</a>
+                <a href="#social">Redes</a>
+                <a href="#projects">Projetos</a>
+                <a href="#contact">Contato</a>
+            </div>
+            <p>&copy; 2025 maxgfortes. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Função para ajustar a altura do header em dispositivos móveis
+        function adjustHeaderHeight() {
+            const header = document.getElementById('home');
+            const vh = window.innerHeight;
+            header.style.height = vh + 'px';
+        }
+        
+        // Animação de entrada das seções
+        function animateSections() {
+            const sections = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
+        // Cursor personalizado
+        function customCursor() {
+            const cursor = document.querySelector('.custom-cursor');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                // Efeito de escala ao passar sobre links
+                const isOverLink = e.target.tagName.toLowerCase() === 'a' || 
+                                  e.target.tagName.toLowerCase() === 'button' ||
+                                  e.target.closest('a') || 
+                                  e.target.closest('button');
+                
+                if (isOverLink) {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                } else {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                }
+            });
+            
+            // Ocultar cursor padrão
+            document.body.style.cursor = 'none';
+            
+            // Mostrar cursor padrão se o cursor customizado falhar
+            cursor.addEventListener('transitionend', () => {
+                if (getComputedStyle(cursor).opacity === '0') {
+                    document.body.style.cursor = 'auto';
+                }
+            });
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            adjustHeaderHeight();
+            animateSections();
+            customCursor();
+            
+            // Ajustar a altura do header ao redimensionar a janela
+            window.addEventListener('resize', adjustHeaderHeight);
+        });
+    </script>
+</body>
+</html>     
