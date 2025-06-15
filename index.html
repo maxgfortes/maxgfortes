@@ -395,8 +395,42 @@ section {
     .social-grid {
         grid-template-columns: 1fr 1fr; /* Mais de duas colunas */
     }
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;       /* fixar na parte inferior */
+    left: 0;         /* fixar à esquerda */
+    width: 100%;     /* largura total da tela */
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.95);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid var(--highlight);
+    z-index: 10000;
+
+    /* Garantir que não tenha margem nem padding que atrapalhe */
+    margin: 0;
+  }
+
+  .bottom-nav a {
+    color: #ccc;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .bottom-nav a:hover,
+  .bottom-nav a:focus {
+    color: #fff;
+  }
 }
 
+/* Esconder em telas maiores */
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none;
+  }
+}
 /* Dispositivos com largura menor que 480px (celulares pequenos) */
 @media (max-width: 480px) {
     section {
@@ -663,6 +697,9 @@ footer {
     footer {
         font-size: 0.8rem;
     }
+      .nav-links {
+    display: none;  /* Esconde os links no menu superior */
+  }
 }
 
 /* Dispositivos com largura menor que 480px (celulares pequenos) */
@@ -694,6 +731,9 @@ footer {
 
     button {
         font-size: 0.9rem;
+    }
+    .nav-container {
+        display: none;
     }
 
     /* Ajustes nas seções */
@@ -760,6 +800,31 @@ audio {
     display: none;
 }
 
+/* Desktop: navbar normal com links, sem bottom nav */
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex;  /* Mostrar os links */
+  }
+  .bottom-nav {
+    display: none; /* Esconder bottom nav */
+  }
+}
+
+/* Mobile: só logo na navbar superior, esconder links, mostrar bottom nav */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Esconder links no topo */
+  }
+  .bottom-nav {
+    display: flex; /* Mostrar bottom nav */
+  }
+  /* Garantir que a logo apareça sempre */
+  .logo {
+    display: block;
+  }
+}
+
+
     </style>
 </head>
 <body>
@@ -791,7 +856,9 @@ audio {
         </div>
     </nav>
 
-      <div class="music-controls">
+
+
+    <div class="music-controls">
         <button class="button-music" id="playPauseBtn">Tocar</button>
         <button class="button-music" id="nextBtn">Próxima Música</button>
     </div>
