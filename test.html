@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Texto Scroll</title>
+  <style>
+    body {
+      height: 2000px; /* Para ter scroll */
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    #meu-texto {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      color: black;
+      transition: color 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="meu-texto">Texto que muda de cor</div>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      const texto = document.getElementById('meu-texto');
+      const scrollY = window.scrollY;
+
+      // Exemplo: muda de preto para vermelho entre 0 e 500px de scroll
+      if (scrollY < 200) {
+        texto.style.color = 'black';
+      } else if (scrollY < 500) {
+        texto.style.color = 'orange';
+      } else {
+        texto.style.color = 'red';
+      }
+    });
+  </script>
+
+</body>
+</html>
+✅ Opção 2: Usando IntersectionObserver (moderno e reativo)
+Se você quiser que o texto mude de cor quando entrar ou sair da tela, pode usar isso:
+
+html
+Copiar
+Editar
+<p id="observado">Este texto muda quando entra na tela</p>
+
+<style>
+  #observado {
+    color: gray;
+    transition: color 0.4s;
+    font-size: 28px;
+    margin-top: 1000px;
+  }
+
+  #observado.visivel {
+    color: green;
+  }
+</style>
+
+<script>
+  const texto = document.getElementById('observado');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        texto.classList.add('visivel');
+      } else {
+        texto.classList.remove('visivel');
+      }
+    });
+  });
+
+  observer.observe(texto);
+</script>
